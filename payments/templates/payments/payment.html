@@ -1,0 +1,36 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+<section class="py-5">
+  <div class="container d-flex justify-content-center">
+    <div class="card p-4 shadow-sm border-0 rounded-5" style="max-width: 400px;">
+      <h3 class="card-title text-center mb-4">Make Your Payment</h3>
+      
+      <form action="{% url 'initiate_payment' order.id %}" method="POST">
+        {% csrf_token %}
+        
+        <!-- Hidden Order ID input -->
+        <input type="hidden" name="order_id" value="{{ order.id }}">
+
+        <!-- Email input -->
+        <div class="form-group mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control" name="email" placeholder="Enter your email" value="{{ order.email }}" required>
+        </div>
+
+        <!-- Amount input -->
+        <div class="form-group mb-3">
+          <label for="amount" class="form-label">Amount to Pay</label>
+          <input type="number" min="1" id="amount" class="form-control" name="amount" value="{{ order.total }}" required readonly>
+        </div>
+
+        <!-- Submit button -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-block mb-3">Proceed to Payment</button>
+        </div>
+      </form>
+      <a href="{% url 'initiate_payment' order.id %}" class="btn btn-primary btn-block">Make Payment</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

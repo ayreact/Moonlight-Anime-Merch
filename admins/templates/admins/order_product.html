@@ -1,0 +1,64 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content%}
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card position-relative py-3">
+                    <div class="card-body">
+                      <div class="ribbon1 rib1-primary">
+                        <span class="text-white text-center rib1-primary">
+                          {% with product_detail.product_quantity as quantity %}
+                              {% if quantity >= 13 %}
+                                In Stock
+                              {% elif quantity > 5 %}
+                                Few units left
+                              {% elif quantity >= 1 %}
+                                {{quantity}} unit{% if quantity > 1 %}s{% endif %} left
+                              {% else %}
+                                Out of stock
+                              {% endif %}
+                            {% endwith %}
+                        </span>
+                      </div>
+                        <div class="row">
+                            <div class="col-lg-6 align-self-center">
+                                <a href="{{product_detail.product_img.url}}" target="blank">
+                                    <img src="{{product_detail.product_img.url}}" alt class="mx-auto d-block" height="300" />
+                                </a>
+                            </div>
+                            <div class="col-lg-6 align-self-center">
+                                <div class="single-pro-detail">
+                                    <p class="mb-1">{{product_detail.product_category}}</p>
+                                    <div class="custom-border mb-3"></div>
+                                    <h3 class="pro-title">{{product_detail.product_name}}</h3>
+                                    <p class="text-muted mb-0">{{product_detail.product_desc}}</p>
+                                    <ul class="list-inline mb-2 product-review">
+                                        {% with product_detail.product_rating as rating %}
+                                        {% for i in "xxxxx" %}
+                                        {% if forloop.counter <= rating %}
+                                        <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                                        {% else %}
+                                        <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endwith %}
+                                        <li class="mx-2 list-inline-item">{{product_detail.product_rating}}.0&nbsp;<small>(rating)</small></li>
+                                    </ul>
+                                    <h2 class="pro-price">${{product_detail.product_price}}</h2>
+                                    <h6 class="text-muted font_s_13 mt-2 mb-1">Description:</h6>
+                                    <ul class="list-unstyled pro-features border-0">
+                                        <li>{{product_detail.product_desc}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock %}

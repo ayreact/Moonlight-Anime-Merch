@@ -1,0 +1,116 @@
+{% load static %}
+<nav class="sidebar dark_sidebar">
+    <div class="logo d-flex justify-content-between position-relative">
+        <a class="large_logo" href=""><img src="{% static 'img/logo(2).svg' %}" alt></a>
+        <a class="small_logo" href=""><img src="{% static 'img/mini_logo.svg' %}" alt></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close text-white position-absolute top-0 end-0"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu">
+        <li class>
+            <a href="{% url 'dashboard' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="{% static 'img/menu-icon/dashboard.svg' %}" alt>
+                </div>
+                <div class="nav_title">
+                    <span class="text-white">Dashboard</span>
+                </div>
+            </a>
+        </li>
+        <li class>
+            <a href="{% url 'home' %}" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="{% static 'img/menu-icon/8.svg' %}" alt>
+                </div>
+                <div class="nav_title">
+                    <span class="text-white">Back to Website</span>
+                </div>
+            </a>
+        </li>
+    <li class>
+    <a class="has-arrow" href="#" aria-expanded="false">
+    <div class="nav_icon_small">
+    <img src="{% static 'img/menu-icon/5.svg' %}" alt>
+    </div>
+    <div class="nav_title">
+    <span class="text-white">User Management</span>
+    </div>
+    </a>
+    <ul>
+    <li><a href="{% url 'add_member' %}">Add User</a></li>
+    <li><a href="{% url 'manage_member' %}">Manage Users</a></li>
+    </ul>
+    </li>
+    <li>
+        <a href="{% url 'user_messages' %}" aria-expanded="false">
+            <div class="nav_icon_small">
+                <img src="{% static 'img/menu-icon/20.svg' %}" alt>
+            </div>
+            <div class="nav_title">
+                <span class="text-white">Messages</span>
+            </div>
+        </a>
+    </li>
+    <li class>
+        <a class="has-arrow" href="#" aria-expanded="false">
+            <div class="nav_icon_small">
+                <img src="{% static 'img/menu-icon/4.svg' %}" alt>
+            </div>
+            <div class="nav_title">
+                <span class="text-white">Admins</span>
+            </div>
+        </a>
+        <ul>
+            <li><a href="{% url 'add_team' %}">Add Team Member</a></li>
+            <li><a href="{% url 'manage_team' %}">Manage Team</a></li>
+        </ul>
+    </li>
+    <li class>
+    <a class="has-arrow" href="#" aria-expanded="false">
+    <div class="nav_icon_small">
+    <img src="{% static 'img/menu-icon/6.svg' %}" alt>
+    </div>
+    <div class="nav_title">
+    <span class="text-white">Products</span>
+    </div>
+    </a>
+    <ul>
+    <li><a href="{% url 'add_product' %}">Add Product</a></li>
+    <li><a href="{% url 'manage_product' %}">Manage Products</a></li>
+    <li><a href="{% url 'product' 'all' %}?category=shop_all">View Products</a></li>
+    </ul>
+    </li>
+    <li class>
+    <a class="has-arrow" href="#" aria-expanded="false">
+    <div class="nav_icon_small">
+    <img src="{% static 'img/menu-icon/3.svg' %}" alt>
+    </div>
+    <div class="nav_title">
+    <span class="text-white">Orders</span>
+    </div>
+    </a>
+    <ul>
+        <li><a href="{% url 'new_orders' %}">New Orders</a></li>
+        <li><a href="{% url 'order_ref' %}">Order Reference</a></li>
+        <li><a href="{% url 'complete_orders' %}">Completed Orders</a></li>
+        <li><a href="{% url 'all_orders' %}">All Orders</a></li>
+    </ul>
+    </li>
+    <li class>
+        <a class="has-arrow" href="#" aria-expanded="false">
+        <div class="nav_icon_small">
+        <img src="{% static 'img/menu-icon/3.svg' %}" alt>
+        </div>
+        <div class="nav_title">
+        <span class="text-white">Blog</span>
+        </div>
+        </a>
+        <ul>
+            <li><a href="{% url 'new_blog' %}">New Blog</a></li>
+            <li><a href="{% url 'manage_blog' %}">Manage Blog</a></li>
+            <li><a href="{% url 'blog' %}">View Blog</a></li>
+        </ul>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,64 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <!-- Card header -->
+                    <div class="white_card_header border-bottom d-flex justify-content-between">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">User Details</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card body START -->
+                    <div class="white_card_body row mt-2">
+                            <!-- Profile picture -->
+                            <div class="col-12 justify-content-center align-items-center my-2">
+                                <div class="d-flex align-items-center">
+                                       <!-- Avatar place holder -->
+                                        <span class="avatar avatar-xl">
+                                            <a href="{% if member.profile_img %}{{ member.profile_img.url }}{% else %}{% static 'profile_images/default-img.jpg' %}{% endif %}" target="_blank">
+                                                <img id="uploadfile-1-preview" style="width: 100px; height: 100px;" class="avatar-img rounded-circle border border-white border-2 shadow" 
+                                                src="{% if member.profile_img %}{{ member.profile_img.url }}{% else %}{% static 'profile_images/profile (1).jpg' %}{% endif %}" 
+                                                alt="">
+                                            </a>
+                                        </span>
+            
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">User ID: </span> <span class="text-dark fs-6">{{member.id}}</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">Username: </span> <span class="text-dark fs-6">{{member.username}}</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">First Name: </span> <span class="text-dark fs-6">{{member.first_name}}</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">Last Name: </span> <span class="text-dark fs-6">{{member.last_name}}</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">Email ID: </span> <span class="text-dark fs-6">{{member.email}}</span></p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p class="my-3"><span class="text-dark fw-bold fs-6">Phone Number: </span> <span class="text-dark fs-6">{{member.phone_number}}</span></p>
+                            </div>
+                    </div>
+                    <!-- Card body END -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

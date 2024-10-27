@@ -1,0 +1,169 @@
+{% extends 'products/basee.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-3">
+    <div class="row g-4">
+        <!-- ORDER SUMMARY -->
+        <div class="col-lg-4">
+            <div class="white_card">
+                <div class="white_card_header border_bottom_1px">
+                    <h4 class="card-title mb-0">Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive shopping-cart">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">Product</th>
+                                    <th class="border-top-0">Quantity</th>
+                                    <th class="border-top-0">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_product in cart.cartproduct_set.all %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ cart_product.product.product_img.url }}" alt="{{ cart_product.product_name }}" height="50" class="rounded-3" />
+                                        <p class="d-inline-block align-middle mb-0 product-name f_s_16 fw-bold color_theme2 mx-1">{{ cart_product.product.product_name }}</p>
+                                    </td>
+                                    <td>{{ cart_product.quantity }}</td>
+                                    <td>${{ cart_product.product_total }}</td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td><h6>Total :</h6></td>
+                                    <td></td>
+                                    <td class="text-dark"><strong>${{ sub_total }}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="total-payment mt-4">
+                        <table class="table mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="payment-title">Subtotal</td>
+                                    <td>${{ sub_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="payment-title">VAT</td>
+                                    <td>${{ tax }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="payment-title">Total</td>
+                                    <td class="text-dark"><strong>${{ total }}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                
+                </div>
+            
+            </div>
+            
+        </div>
+        <!-- END ORDER SUMMARY -->
+        
+        <!-- BILLING DETAILS -->
+        <div class="col-lg-4">
+            <div class="white_card">
+                <div class="white_card_header border_bottom_1px">
+                    <h4 class="card-title mb-0">Billing Details</h4>
+                </div>
+            
+                <div class="card-body">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card border mb-1 shadow-none">
+                            <div class="white_card_header border_bottom_1px custom-accordion text-dark d-flex justify-content-between" id="headingOne">
+                                <span class="align-self-center">Payment secured by Paystack</span> <img src="{% static 'img/card/paystack.png' %}" alt height="30" />
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample" style>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3 border-bottom pb-2">
+                                                <label class="form-label">Total Amount to be paid:</label><br>
+                                                <span class="fw-bold">{{ total }}</span>
+                                            </div>
+                                            <div class="mb-3 border-bottom pb-2">
+                                                <label class="form-label">Email:</label><br>
+                                                <span class="fw-bold">{{ user.email }}</span>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                                
+                                </div>
+                            
+                            </div>
+                        
+                        </div>
+                        <p class="my-3"><span class="fw-bold">NOTE:</span> All orders will take at least 24 hours to be delivered (except some specific orders).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END BILLING DETAILS -->
+         
+        <!-- DELIVERY DETAILS -->
+        <div class="col-lg-4">
+            <div class="white_card">
+                <div class="white_card_header border_bottom_1px">
+                    <h4 class="card-title mb-0">Delivery Details</h4>
+                </div>
+                
+                <div class="card-body">
+                    <form action="{% url 'checkout' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label class="form-label col-xl-3 col-lg-3 col-form-label">First Name</label>
+                            <div class="col-lg-9 col-xl-8">
+                                <input class="form-control" value="{{user.first_name}}" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="form-label col-xl-3 col-lg-3 col-form-label">Last Name</label>
+                            <div class="col-lg-9 col-xl-8">
+                                <input class="form-control" value="{{user.last_name}}" type="text"/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="form-label col-xl-3 col-lg-3 col-form-label">Delivery Address</label>
+                            <div class="col-lg-9 col-xl-8">
+                                <textarea class="form-control" rows="4" name="delivery" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="form-label col-xl-3 col-lg-3 col-form-label">Email ID</label>
+                            <div class="col-lg-9 col-xl-8">
+                                <input class="form-control" value="{{user.email}}" type="text" name="email" required/>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="form-label col-xl-3 col-lg-3 col-form-label">Mobile No.</label>
+                            <div class="col-lg-9 col-xl-8">
+                                <input class="form-control" value="{{user.phone_number}}" type="text" name="phone_number" required/>
+                            </div>
+                        </div>
+                        <div class="row mb-1 align-items-center">
+                            <div class="col-lg-1">
+                                <input type="checkbox" role="button" id="csa"/>
+                            </div>
+                            <label for="csa" class="form-label col-lg-11 col-form-label" role="button">Confirm Shipping Address</label>
+                        </div>
+                        <div class="row mb-3">
+                            <p>Moblie Number and Email can be changed if needed.</p>
+                            <p>All input fields must be field.</p>
+                        </div>
+                        <button type="submit" class="btn_1 radius_btn d-block text-center w-100 mt-2">PLACE ORDER</button>
+                    </form>
+                </div>
+            
+            </div>
+        
+        </div>
+        <!-- END DELIVERY ADDRESS -->
+    </div>
+</div>
+{% endblock %}

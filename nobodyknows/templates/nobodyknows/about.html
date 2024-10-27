@@ -1,0 +1,172 @@
+{% extends 'nobodyknows/base.html' %}
+{% load static %}
+{% block content%}
+<!-- About Section -->
+<div id="about" class="about section">
+
+    <div class="container">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-6 content">
+          <p class="who-we-are">Who We Are</p>
+          <h3>Moonlight Anime Merch</h3>
+          <p class="fst-italic">Here at Moonlight Anime Merch, we craft high-quality anime-inspired clothing, footwear, jewelry, and accessories, bringing the vibrant world of anime to passionate fans.</p>
+          <ul>
+            <li><i class="bi bi-check-circle"></i> <span>Creating a vibrant community for anime culture and style.</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Fostering a deeper connection between anime fans and anime itself.</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Inspiring creativity and confidence through iconic anime-inspired designs.</span></li>
+          </ul>
+          <p>To our amazing customers, thank you for choosing Moonlight Anime Merch as your destination for anime clothing, footwear, jewelry, and accessories. Your passion drives us to bring your favorite characters to life. We're grateful to have you on this journey with us!</p>
+        </div>
+
+        <div class="col-lg-6 about-images">
+          <div class="row gy-4">
+            <div class="col-lg-6">
+              <img src="{% static 'assets/img/about-company-1.jpg' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6">
+              <div class="row gy-4">
+                <div class="col-lg-12">
+                  <img src="{% static 'assets/img/about-company-2.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-12">
+                  <img src="{% static 'assets/img/about-company-3.jpg' %}" class="img-fluid" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>
+<!-- /About Section -->
+
+ <!-- Section Title -->
+<section id="team" class="team section mt-4">
+    <div class="container section-title">
+        <div class="section-title-container d-flex align-items-center justify-content-between">
+        <h2>Team</h2>
+        <p>The people behind the production at Moonlight Anime Merch</p>
+        </div>
+    </div>
+</section>
+<!-- End Section Title -->
+
+<div class="container">
+    <div class="row g-5 mt-1 mb-5">
+        {% for member in Team %}
+        <div class="col-md-6 col-lg-6 col-xl-4 box-col-6">
+            <div class="card custom-card">
+                <div class="card-header">
+                    <img class="img-fluid" src="{% if member.user_cover %}{{member.user_cover.url}}{% else %}{% static 'img/profilebox/1.jpg' %}{% endif %}" alt="" data-original-title>
+                </div>
+                <div class="card-profile">
+                    <a href="{{member.user_img.url}}" target="_blank">
+                        <img class="rounded-circle" src="{{member.user_img.url}}" alt="" data-original-title title="View Image">
+                    </a>
+                </div>
+                <ul class="card-social">
+                    <li>
+                        <a href="{{member.instagram}}" target="_blank" data-original-title title="Check out {{member.name}} on instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/{{member.whatsapp}}" target="_blank" data-original-title title="Message {{member.name}} on whatsapp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{member.twitter}}" target="_blank" data-original-title title="Check out {{member.name}} on X">
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:{{member.email}}" target="_blank" data-original-title title="Send an email to {{member.name}}">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="tel:{{member.phone_number}}" target="_blank" data-original-title title="Call {{member.name}}">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="text-center profile-details">
+                    <h4>{{member.name}}</h4>
+                    <h6>{{member.position}}</h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="col-12">
+            <div class="white_card shadow">
+                <div class="white_card_header d-flex justify-content-center">
+                    <div class="box_header m-0">
+                        <div class="main-title">
+                            <h3 class="m-0">Frequently Asked Questions (FAQs)</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="white_card_body">
+                    <div class="my-3 faq">
+                        <div class="faq_header rounded-4 p-3 px-4 fw-bold" role="button">
+                            Question 1
+                        </div>
+                        <div class="faq_body">
+                            <p class="p-3">
+                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="my-3 faq">
+                        <div class="faq_header rounded-4 p-3 px-4 fw-bold" role="button">
+                            Question 2
+                        </div>
+                        <div class="faq_body">
+                            <p class="p-3">
+                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="my-3 faq">
+                        <div class="faq_header rounded-4 p-3 px-4 fw-bold" role="button">
+                            Question 3
+                        </div>
+                        <div class="faq_body">
+                            <p class="p-3">
+                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="my-3 faq">
+                        <div class="faq_header rounded-4 p-3 px-4 fw-bold" role="button">
+                            Question 4
+                        </div>
+                        <div class="faq_body">
+                            <p class="p-3">
+                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="my-3 faq">
+                        <div class="faq_header rounded-4 p-3 px-4 fw-bold" role="button">
+                            Question 5
+                        </div>
+                        <div class="faq_body">
+                            <p class="p-3">
+                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

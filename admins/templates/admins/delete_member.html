@@ -1,0 +1,26 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="white_card mx-4 my-4 card_height_100 mb_30">
+            <div class="white_card_header">
+                <div class="box_header m-0">
+                    <div class="main-title">
+                    <h3 class="m-0">Delete User (ID: {{member.id}})</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body position-relative">
+                <p class="my-3 text-dark fs-6"><span class="text-dark fs-6">By clicking "Delete", You're deleting this user's account from this website.</p>
+                <p class="my-3 text-dark fs-6"><span class="">This must be due to notice of some <strong>malicious</strong> acts on this account.</p>
+                <p class="my-3 w-75"><span class="text-dark fw-bold fs-6 text-underlined">Note: </span> <span class="text-dark fs-6">This user would not be able to make orders on your store. This user would have to create a new account to place orders again</span></p>
+                <p class="my-3 text-dark fs-6">Do you want to continue?</p>
+                <div class="position-absolute end-0 bottom-0">
+                    <a href="{% url 'delete_member' member.id %}" class="btn_1 my-1 mx-4">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

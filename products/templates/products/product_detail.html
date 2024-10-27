@@ -1,0 +1,140 @@
+{% extends 'products/basee.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content%}
+<div class="container my-4 main_content_iner overly_inner ">
+    <div class="container-fluid p-0 ">
+      <div class="row">
+        <div class="col-12">
+          <div class="white_card position-relative mb_20">
+            {% if product_detail.discount_value > 0 %}
+              <span class="position-absolute top-0 start-0 badge_btn_4 px-2 m-2" style="font-size: 11px;">-{{ product_detail.discount_value }}%</span>
+            {% endif %}
+            <div class="card-body">
+              <div class="ribbon1 rib1-primary">
+                <span class="text-white text-center rib1-primary">
+                  {% with product_detail.product_quantity as quantity %}
+                      {% if quantity >= 13 %}
+                        In Stock
+                      {% elif quantity > 5 %}
+                        Few units left
+                      {% elif quantity >= 1 %}
+                        {{quantity}} unit{% if quantity > 1 %}s{% endif %} left
+                      {% else %}
+                        Out of stock
+                      {% endif %}
+                    {% endwith %}
+                </span>
+              </div>
+            <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <a href="{{product_detail.product_img.url}}" target="blank">
+                <img src="{{product_detail.product_img.url}}" alt class="mx-auto d-block" height="300" />
+              </a>
+            </div>
+            
+            <div class="col-lg-6 align-self-center">
+            <div class="single-pro-detail">
+            <p class="mb-1">{{product_detail.product_category}}</p>
+            <div class="custom-border mb-3"></div>
+            <h3 class="pro-title">{{product_detail.product_name}}</h3>
+            <p class="text-muted mb-0">{{product_detail.product_desc}}</p>
+            <ul class="list-inline mb-2 product-review">
+                {% with product_detail.product_rating as rating %}
+                {% for i in "xxxxx" %}
+                  {% if forloop.counter <= rating %}
+                  <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                  {% else %}
+                  <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                  {% endif %}
+                {% endfor %}
+                {% endwith %}
+            <li class="mx-2 list-inline-item">{{product_detail.product_rating}}.0&nbsp;<small>(rating)</small></li>
+            </ul>
+            <h2 class="pro-price">${{product_detail.product_price}} {% if product_detail.discount_value > 0 %}<small class="text-secondary fw-normal text-decoration-line-through">${{product_detail.actual_prod_price}}</small>{% endif %}</h2>
+            <h6 class="text-muted font_s_13 mt-2 mb-1">Description:</h6>
+            <ul class="list-unstyled pro-features border-0">
+              <li>{{product_detail.product_desc}}</li>
+            </ul>
+            <div class="quantity w-50">
+            {% if product_detail.id in cart_products_id %}
+              {% with cart_product=cart_product_map|get_item:product_detail.id %}
+                <div class="d-flex justify-content-between border-top w-100">
+                    <div class="mt-3">
+                        <a href="{% url 'remove_from_cart' cart_product.id 'from_prod_det' %}" class="d-flex justify-content-center align-self-center align-items-center h-100 rounded-3 fw-bold" style="background: #59889c;" title="Remove from cart"><i class="fa fa-trash text-white px-2" style="font-size: 18px;"></i></a>
+                    </div>
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="{% url 'update_cart_quantity' cart_product.id product_detail.id 'decrease' 'from_prod_det' %}" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-left-radius: 8px; border-bottom-left-radius: 8px;" title="Reduce quantity">-</a>
+                        <span class="text-dark fs-6 p-3 py-2 border">{{ cart_product.quantity }}</span>
+                        <a href="{% url 'update_cart_quantity' cart_product.id product_detail.id 'increase' 'from_prod_det' %}" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-right-radius: 8px; border-bottom-right-radius: 8px;" title="Increase quantity">+</a>
+                    </div>
+                </div>
+              {% endwith %}
+            {% else %}
+            <a href="{% url 'add_to_cart' product_detail.id 'from_prod_det' %}" class="btn theme_bg_6 text-white px-4 d-inline-block w-100"><i class="fa fa-cart-plus text-white me-2"></i>Add to Cart</a>
+            {% endif %}
+            </div>
+            </div>
+            </div>
+            
+            </div>
+            
+            </div>
+          
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="white_card position-relative mb_20">
+            <div class="card-body">
+              <h5 class="mt-0">Related Products</h5>
+              <p class="text-muted mb-3 font_s_14">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-3">
+              <div class="white_card position-relative mb_20 ">
+                <div class="card-body">
+                  <div class="ribbon1 rib1-primary">
+                    <span class="text-white text-center rib1-primary">Few units left</span>
+                  </div>
+                  <a href="">
+                    <img src="" alt class="d-block mx-auto my-4" height="150">
+                  </a>
+                  <div class="row my-4">
+                    <div class="col">
+                      <span class="badge_btn_1  mb-1">Category</span>
+                      <a href="" class="f_w_600 color_text_3 f_s_17 d-block">Lorem ipsum</a>
+                    </div>
+                    <div class="col-auto position-relative">
+                    <h4 class="text-dark mt-0 position-absolute top-0 end-0 px-2 f_s_16">$price</h4>
+                    <div class="position-absolute end-0 bottom-0">
+                      <ul class="list-inline mb-0 product-review d-flex align-self-center px-2">
+                        <!-- {% with product.product_price as rating %}
+                        {% for i in "xxxxx" %}
+                          {% if forloop.counter <= rating %}
+                          <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                          {% else %}
+                          <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% endwith %} -->
+                      </ul>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="d-grid">
+                    <a href="" class="btn_2 btn">Add To Cart</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

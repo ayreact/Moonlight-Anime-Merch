@@ -1,0 +1,74 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="row">
+    <div class="col-12">
+        <div class="white_card mx-4 my-4 card_height_100 mb_30">
+            <div class="white_card_header">
+                <div class="box_header m-0">
+                    <div class="main-title d-sm-flex justify-content-between w-100">
+                    <h3 class="m-0">Add New Product</h3>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <h6 class="my-auto"><small class="text-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">{{message|safe}}</small></h6>
+                    {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body">
+                <form action="{% url 'add_product' %}" enctype="multipart/form-data" method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="product_name" type="text" placeholder="Product Name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="product_price" type="text" placeholder="Product Price" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="product_desc" type="text" placeholder="Product Description" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="product_img" type="file" class="form-control p-0 m-0" placeholder="Attach Product Image" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="product_rating" min="0" max="5" type="number" placeholder="Rating Count" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input type="text" name="product_quantity" placeholder="Quantity Available" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <select name="product_category" class="nice_Select2 nice_Select_line wide" style="display: none;" required>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Footwear">Footwear</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Jewellery">Jewellery</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <div class="create_report_btn mt_30">
+                                <input type="submit" class="btn_1 radius_btn d-block text-center w-100" value="Add Product">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

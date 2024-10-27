@@ -1,0 +1,30 @@
+{% load static %}
+<nav>
+  <a class="small_logo" href="">
+    <img src="{% static 'img/logo.svg' %}" alt="Moonlight Anime Merch" class="rounded-3">
+  </a>
+  <ul> 
+      <li><a href="{% url 'home' %}" title="Home">HOME</a></li>
+      <li><a href="{% url 'home' %}#services" title="Services">SERVICES</a></li>
+      <li><a href="{% url 'product' 'all' %}?category=shop_all" title="Shop">SHOP</a></li>
+      <li><a href="{% url 'about' %}" title="About">ABOUT</a></li>
+      <li><a href="{% url 'blog' %}" title="Blog">BLOG</a></li>
+      <li><a href="{% url 'contact' %}" title="Contact">CONTACT</a></li>
+  </ul>
+  <div>
+    <div class="social">
+      <div>
+        {% if user.is_authenticated %}
+          <a href="{% url 'cart' %}" title="Cart" class="position-relative"><i class="fa-solid fa-cart-shopping" id="logout"></i></a>
+          <a href="{% url 'account_details' %}?category=acc_det" title="Profile"><i class="fa-solid fa-user" id="account"></i></a>
+          {% if user.is_superuser %}
+            <a href="{% url 'dashboard' %}" title="Admin Dashboard"><i class="fa-solid fa-table-columns" id="account"></i></a>
+          {% endif %}
+          <a href="{% url 'logout' %}" title="Log Out"><i class="fa-solid fa-right-from-bracket" id="logout"></i></a>
+        {% else %}
+          <a href="{% url 'sign' %}" class="auth_btn mx-2" title="Sign Up">SIGN UP</a>
+          <a href="{% url 'log' %}" class="auth_btn log" title="Log In">LOG IN</a>
+        {% endif %}
+    </div>
+  </div>
+</nav>

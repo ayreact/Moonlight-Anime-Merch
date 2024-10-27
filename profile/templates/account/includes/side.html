@@ -1,0 +1,41 @@
+{% load static %}
+<!-- Sidebar start -->
+<div class="col-lg-3">
+    <div class="white_card mb-4 overflow-hidden">
+        <div class="white_card_header border-bottom position-relative">
+            <a href="{% url 'account_details' %}" title="Edit Details"><i class="far fa-edit position-absolute top-0 end-0 p-3"></i></a>
+            <div class="d-flex justify-content-center mt-3">
+                <!-- Avatar place holder -->
+                <span class="avatar avatar-xl">
+                    <a href="{% if user.profile_img %}{{ user.profile_img.url }}{% else %}#{% endif %}" target="_blank">
+                        <img id="uploadfile-1-preview" style="width: 80px; height: 80px;" class="avatar-img rounded-circle border border-white border-2 shadow" 
+                        src="{% if user.profile_img %}{{ user.profile_img.url }}{% else %}{% static 'profile_images/profile (1).jpg' %}{% endif %}" 
+                        alt="">
+                    </a>
+                </span>
+            </div>
+            <div class="box_header justify-content-center m-0 mt-3">
+                <div class="main-title">
+                    <h3 class="m-0">{{user.first_name}} {{user.last_name}}</h3>
+                </div>
+            </div>
+            <div class="m-0">
+                <p class="text-center">
+                    <a class="text-primary" href="#">{{user.email}}</a>
+                </p>
+            </div>
+        </div>
+        <!-- Card body -->
+        <div class="white_card_body">
+            <ul class="overflow-hidden mt-2 w-100">
+                <li class="text-center border-bottom"><a href="{% url 'account_details' %}?category=acc_det" class="btn w-100 mb-1 side_link p-2"><i class="fa fa-user mx-2 text-white"></i>My Profile</a></li>
+                <li class="text-center border-bottom"><a href="{% url 'account_settings' %}?category=acc_set" class="btn w-100 my-1 side_link p-2"><i class="fa-solid fa-gear mx-2 text-white"></i>Settings</a></li>
+                <li class="text-center border-bottom"><a href="?category=action1" class="btn w-100 my-1 side_link p-2">Action</a></li>
+                <li class="text-center border-bottom"><a href="?category=action2" class="btn w-100 my-1 side_link p-2">More action!</a></li>
+                <li class="text-center border-bottom"><a href="?category=action3" class="btn w-100 my-1 side_link p-2">Moree actionn!!</a></li>
+                <li class="text-center"><a href="{% url 'logout' %}?category=logout" class="btn w-100 mt-1 side_link p-2"><i class="fa-solid fa-right-from-bracket mx-2 text-white"></i>Log Out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sidebar start -->

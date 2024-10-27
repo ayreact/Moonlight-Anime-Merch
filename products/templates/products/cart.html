@@ -1,0 +1,79 @@
+{% extends 'products/basee.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-3">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="white_card QA_section border-0">
+                <div class="white_card_header border-bottom d-flex justify-content-start">
+                    <div class="box_header m-0">
+                        <div class="main-title">
+                            <h3 class="m-0">Your cart</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="white_card_body QA_table mt-3">
+                    <div class="table-responsive shopping-cart">
+                        {% if cart.products.all %}
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">Product</th>
+                                    <th class="border-top-0">Price</th>
+                                    <th class="border-top-0">Quantity</th>
+                                    <th class="border-top-0">Total</th>
+                                    <th class="border-top-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_product in cart.cartproduct_set.all %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'product_details' cart_product.product.id %}">
+                                            <img src="{{ cart_product.product.product_img.url }}" alt="{{ cart_product.product_name }}" height="50" class="rounded-2">
+                                            &nbsp;
+                                            <p class="d-inline-block align-middle mb-0 f_s_16 fw-bold color_theme2">{{ cart_product.product.product_name }}</p>
+                                        </a>
+                                    </td>
+                                    <td>${{ cart_product.product.product_price }}</td>
+                                    <td>
+                                        <a href="{% url 'update_cart_quantity' cart_product.id cart_product.product.id 'decrease' 'from_cart' %}" class="text-white fs-6 py-2 p-3 rounded-3 fw-bold" style="background: #59889c;">-</a>
+                                        <span class="text-dark fs-6 p-3 py-2 border rounded-2">{{ cart_product.quantity }}</span>
+                                        <a href="{% url 'update_cart_quantity' cart_product.id cart_product.product.id 'increase' 'from_cart' %}" class="text-white fs-6 py-2 p-3 rounded-3 fw-bold" style="background: #59889c;">+</a>
+                                    </td>
+                                    <td>
+                                        ${{ cart_product.product_total }}
+                                    </td>
+                                    <td><a href="{% url 'remove_from_cart' cart_product.id 'from_cart' %}" class="text-dark"><i class="far fa-times-circle font_s_18"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p class="fs-4 fw-bold text-dark">Your cart is empty</p>
+                        {% endif %}
+                    </div>
+                    <div class="row justify-content-end mt_30">
+                        <div class="col-md-6">
+                            <div class="total-payment p-3 rounded-4">
+                                <h4 class="header-title">Total Payment</h4>
+                                <table class="table">
+                                    <tbody>
+                                        <tr class="border-top border-light">
+                                            <td class="payment-title">Total</td>
+                                            <td class="text-dark"><strong>${{ total }}</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {% if cart.products.all %}
+                                    <a href="{% url 'proceed_to_checkout' %}" class="btn_1 radius_btn d-block text-center w-100 mt-2">Checkout</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

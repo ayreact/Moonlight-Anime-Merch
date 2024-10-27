@@ -1,0 +1,5 @@
+<p>Payment for order {{ order }} was failed.</p>
+
+{% with this_order as order %}
+<a href="{% url 'initiate_payment' this_order.id %}" class="btn btn-primary btn-block">Make Payment</a>
+{% endwith %}

@@ -1,0 +1,76 @@
+{% load static %}
+<footer class="mt-0">
+    <div class="row g-5 pt-5">
+        <div class="col-lg-4 col-md-6">
+            <a href="#">
+                <div class="d-flex align-items-center">
+                    <img src="{% static 'img/mini_logo.svg' %}" alt="Moonlight Anime Merch">
+                    <p class="text-dark mx-3 h6">... <strong class="fw-bold" style="color: #34a7d8;">M</strong>oon <strong style="color: #9ce1ff;" class="fw-bold">L</strong>ight ...<br> Anime Merch</p>
+                </div>
+            </a>
+            <p class="mt-2">Address: 27, Amobi, Megida, Ayobo, Ipaja, Lagos.</p>
+            <p class="mt-2">Phone: +234-704-458-4688</p>
+            <p class="mt-2">Email: abiolaayokunnu101@gmail.com</p>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="col-12">
+                <p class="fw-bold">Useful Links</p>
+            </div>
+            <div class="col-12 row mt-2">
+                <div class="col-6">
+                    <ul>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li class="mt-2"><a href="{% url 'about' %}" class="mt-2">About Our Shop</a></li>
+                        <li class="mt-2"><a href="#" class="mt-2">Secure Shopping</a></li>
+                        <li class="mt-2"><a href="#" class="mt-2">Delivery Information</a></li>
+                        <li class="mt-2"><a href="#" class="mt-2">Privacy Policy</a></li>
+                        <li class="mt-2"><a href="#" class="mt-2">Our Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <ul>
+                        <li><a href="{% url 'about' %}">Who We Are</a></li>
+                        <li class="mt-2"><a href="{% url 'product' 'all' %}" class="mt-3">Our Services</a></li>
+                        <li class="mt-2"><a href="#" class="mt-3">Projects</a></li>
+                        <li class="mt-2"><a href="{% url 'contact' %}" class="mt-3">Contact</a></li>
+                        <li class="mt-2"><a href="#" class="mt-3">Innovation</a></li>
+                        <li class="mt-2"><a href="#" class="mt-3">Testimonials</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 row mt-md-4 align-items-center p-4">
+            <div class="col-md-6 col-lg-12">
+                <div class="col-12">
+                    <p class="fw-bold">Join Our Whatsapp Group</p>
+                    <p class="mt-2">View available products and place orders with special offers</p>
+                </div>
+                <div class="serach_field-area d-flex align-items-center col-12 mt-3">
+                    <div class="search_inner">
+                        <form action="{% if user.is_authenticated %}{% url 'wa_group' %}{% else %}{% url 'log' %}{% endif %}" method="{% if user.is_authenticated %}post{% endif %}">
+                            {% csrf_token %}
+                            <div class="search_field">
+                                <input type="text" name="wa_number" placeholder="Enter your whatsapp number" required>
+                            </div>
+                            <button type="submit"> <i class="fa-solid fa-right-to-bracket text-white"></i> </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 my-3">
+                <div class="social mx-md-3 mx-lg-0">
+                    <div>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="mx-2"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="mx-2"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row border-top border-secondary mt-1">
+        <p class="text-center p-1">Copyright <a target="_blank" href="http://ayokunnuabiola.liveblog365.com/?i=1" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Graphix Prime</a> © 2024 | All Rights Reserved</p>
+    </div>
+</footer>

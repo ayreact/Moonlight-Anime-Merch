@@ -1,0 +1,52 @@
+{% load static %}
+
+<div class="CHAT_MESSAGE_POPUPBOX">
+      <div class="row">
+        <div class="col-12">
+          <div class="card rounded-3">
+            <div class="card-body">
+  
+  
+              <form class="row row-cols-lg-auto g-3 justify-content-center w-100" method="post" action="{% url 'tasks' %}">
+                {% csrf_token %}
+                <div class="col-9">
+                  <div data-mdb-input-init class="form-outline">
+                    <input type="text" id="form1" name="new_task" class="form-control" />
+                    <label class="form-label mt-2" for="form1">Enter a task here</label>
+                  </div>
+                </div>
+  
+                <div class="col-3">
+                  <button type="submit" class="btn_1">Save</button>
+                </div>
+              </form>
+  
+              <table class="table mb-4">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Todo item</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for task in all_tasks %}
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{{task.new_task}}</td>
+                    <td>In progress</td>
+                    <td>
+                      <a href="#" class="btn btn-danger px-2 py-1"><small class="text-white">Delete</small></a>
+                      <a href="#" class="btn btn-success ms-1 px-2 py-1"><small class="text-white">Done</small></a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

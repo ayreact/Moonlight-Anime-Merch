@@ -1,0 +1,117 @@
+{% extends 'nobodyknows/base.html' %}
+{% load static %}
+{% block content%}
+<!-- Message -->
+<div class="con">
+    <img src="{% static 'img(2)/mainbg.png' %}" alt="">
+    <div class="banner">
+        <div class="d-flex justify-content-center">
+            <img src="{% static 'img(2)/play.png' %}" alt="Contact">
+            <h1>CONTACT US</h1>
+            <img src="{% static 'img(2)/play.png' %}" class="rotate" alt="Contact">
+        </div>
+        <p class="hr">- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message|safe}}</p>
+        {% endfor %}
+        {% else %}
+        <p>designed by <a href="http://ayokunnuabiola.liveblog365.com/?i=1" target="_blank" class="text-primary"> <i class="fa fa-heart text-primary"></i> Graphix Prime</a></p>
+        {% endif %}
+    </div>
+    <div class="hero">
+        <div class="form">
+            <div class="bar a"></div>
+            <div class="bar b"></div>
+            <div class="bar c"></div>
+            <div class="bar d"></div>
+            <div class="bar e"></div>
+            <div class="bar f"></div>
+            <div class="bar g"></div>
+            <div class="bar h"></div>
+            <div class="bar i"></div>
+            <form method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <h4 class="text-white mb-3">Leave a message</h4>
+                <input type="text" placeholder="Name:" name="name" required><br>
+                <input type="email" placeholder="Email address:" name="email" required><br>
+                <input type="text" placeholder="Subject:" name="subject" required><br>
+                <textarea placeholder="Your message:" name="message" required></textarea><br>
+                <input type="submit" value="SEND MESSAGE">
+            </form>
+        </div>
+        <div class="n-form">
+            <div class="pos"></div>
+            <div class="pos-2"></div>
+            <div class="pos-3">DROP IN OUR OFFICE</div>
+            <div class="pos-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Excepteur sint occaecat cupidatat non proident.</p>
+                <p>CONTACT INFORMATION</p>
+                <p><i class="fa-solid fa-phone"></i>&nbsp;+44 20 7123-4567 <br>Street Address, Number - Village</p>
+                <p><i class="fa-regular fa-envelope"></i>&nbsp;youremail@email.com</p>
+            </div>
+        </div>
+        <div class="bottom">
+            <img src="{% static 'img(2)/line.png' %}" class="line b " alt="">
+            <div class="social">
+                <p>FOLLOW US</p>
+                <div>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <img src="{% static 'img(2)/line.png' %}" class="line a" alt="">
+    </div>
+</div>
+<!-- End Message -->
+
+<!-- Contact details -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-3 col-md-6 text-center my-5">
+            <i class="fa-regular fa-clock h1"></i>
+            <p class="h4">Open Time</p>
+            <p>We are open 24/7</p>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center my-5">
+            <i class="fab fa-instagram h1"></i>
+            <p class="h4">Moonlight IG</p>
+            <a href="#"><p>Follow us on Instagram</p></a>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center my-5">
+            <i class="fa-brands fa-x-twitter h1"></i>
+            <p class="h4">Moonlight X</p>
+            <a href="#"><p>Follow us on X</p></a>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center my-5">
+            <i class="fa-brands fa-whatsapp h1"></i>
+            <p class="h4">Moonlight Whatsapp</p>
+            <a href="#"><p>Message us on Whatsapp</p></a>
+        </div>
+    </div>
+</div>
+<!-- End Contact details -->
+
+<!-- Address Details -->
+<section class="map mt-5 mb-0 position-relative">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.4334397286316!2d3.239970310105695!3d6.592926922326115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b9a943ebde873%3A0x6771785a49238a20!2s27%20Amobi%20Nwanah%20St%2C%20Idimu%2C%20Lagos%20102213%2C%20Lagos!5e0!3m2!1sen!2sng!4v1706530895840!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="position-absolute top-50 translate-middle-y start-0 w-100">
+        <div class="col-12 container d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <div class="white_card shadow">
+                    <div class="white_card_body pt-4">
+                        <h3>Moonlight Anime Merch</h3>
+                        <p>27 Amobi Nwanah St, Idimu, Lagos 102213, Lagos</p>
+                    </div>
+                </div>
+                <i class="fa fa-location-dot p-4" style="font-size: 40px;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Address Details -->
+{% endblock %}

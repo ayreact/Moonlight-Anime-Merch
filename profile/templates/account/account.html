@@ -1,0 +1,93 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Edit details START -->
+<div class="white_card shadow-sm">
+    <!-- Card header -->
+    <div class="white_card_header border-bottom">
+        <div class="box_header m-0 d-flex justify-content-between">
+            <div class="main-title">
+                <h3 class="m-0">Personal Details</h3>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if messages.tags == success %}
+                        <h6 class="my-auto"><small class="text-success">{{message|safe}}</small></h6>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- Card body START -->
+    <div class="white_card_body mt-2">
+        <!-- Form -->
+        <form action="{% url 'edit_user' user.id %}" method="post" enctype="multipart/form-data" class="row g-4" >
+            {% csrf_token %}
+            <!-- Profile picture -->
+            <div class="col-12 justify-content-center align-items-center">
+                <label class="form-label">Profile picture</label>
+                <div class="d-flex align-items-center">
+                    <label class="position-relative me-4">
+                    <!-- Avatar place holder -->
+                        <span class="avatar avatar-xl">
+                            <a href="{% if user.profile_img %}{{ user.profile_img.url }}{% else %}#{% endif %}" target="_blank">
+                                <img id="uploadfile-1-preview" style="width: 70px; height: 70px;" class="avatar-img rounded-circle border border-white border-3 shadow-sm" 
+                                src="{% if user.profile_img %}{{ user.profile_img.url }}{% else %}{% static 'profile_images/profile (1).jpg' %}{% endif %}" 
+                                alt="">
+                            </a>
+                        </span>
+                    </label>
+                    <!-- Upload button -->
+                    <label class="btn" id="account_btn" for="uploadfile-1" title="Change Profile Picture">Change</label>
+                    <input id="uploadfile-1" name="profile_img" class="form-control d-none" type="file">
+                </div>
+            </div>
+
+            <!-- Full name -->
+            <div class="col-12">
+                <label class="form-label">Full Name</label>
+                <div class="common_input mb_15">
+                    <div class="input-group">
+                        <input type="text" name="first_name" class="form-control" value="{{user.first_name}}" placeholder="First Name">
+                        <input type="text" name="last_name" class="form-control" value="{{user.last_name}}" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Username -->
+            <div class="col-md-6">
+                <label class="form-label">Username</label>
+                <div class="common_input mb_15">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent">Log in ID</span>
+                        <input type="text" name="username" class="form-control" value="{{user.username}}">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email id -->
+            <div class="col-md-6">
+                <label class="form-label">Email ID</label>
+                <div class="common_input mb_15">
+                    <input name="email" class="form-control" type="email" value="{{user.email}}"  placeholder="Email">
+                </div>
+            </div>
+
+            <!-- Phone number -->
+            <div class="col-md-6">
+                <label class="form-label">Contact Number</label>
+                <div class="common_input">
+                    <input type="text" name="phone_number" class="form-control" value="{{user.phone_number}}" placeholder="Contact Number">
+            
+                </div>
+            </div>
+            <!-- Save button -->
+            <div class="d-sm-flex justify-content-end">
+                <input class="btn" id="account_btn" type="submit" value="Save Changes">
+            </div>
+        </form>
+    </div>
+    <!-- Card body END -->
+</div>
+<!-- Edit details END -->
+{% endblock %}

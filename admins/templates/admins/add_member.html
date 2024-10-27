@@ -1,0 +1,76 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content%}
+
+<div class="row">
+    <div class="col-12">
+        <div class="white_card mx-4 my-4 card_height_100 mb_30">
+            <div class="white_card_header">
+                <div class="box_header">
+                    <div class="main-title d-sm-flex justify-content-between w-100">
+                    <h3 class="m-0">Add New User</h3>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <h6 class="my-auto"><small class="text-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">{{message|safe}}</small></h6>
+                    {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="white_card_body">
+                <form action="{% url 'add_member' %}" enctype="multipart/form-data" method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="first_name" type="text" placeholder="First Name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="last_name" type="text" placeholder="Last Name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="email" type="text" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="username" type="text" placeholder="Username" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="password" type="password" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="confirm_password" type="password" placeholder="Confirm Password" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="phone_number" type="text" placeholder="Contact Number" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="common_input mb_15">
+                                <input name="profile_img" type="file" class="form-control p-0 m-0" title="Attach Profile Image">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="create_report_btn mt_30">
+                                <input type="submit" class="btn_1 radius_btn d-block text-center w-100" value="Add User">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'member/base.html' %}
+{% load socialaccount %}
+{% load static %}
+{% block head_title %}Log in{% endblock %}
+{% block content%}
+<form action="{% url 'log' %}" method="post">
+  {% csrf_token %}
+  <h3>Log In</h3>
+  {% if messages %}
+  {% for message in messages %}
+  <p style="margin: 30px 0; font-size: 13px; color: red;">{{message|safe}}</p>
+  {% endfor %}
+  {% endif %}
+  <div class="form-row" style="display: block; padding: 0 5%;">
+      <input type="text" class="form-control" style="width: 100%;" placeholder="Username"  name="username">
+      <input type="password" class="form-control" style="width: 100%; margin-top: 10px;" placeholder="Password"  name="password">
+  </div>
+  <button type="submit">Log In<i class="fa fa-arrow-right"></i></button><br>
+  <h3>OR</h3>
+  <p>Sign in with</p>
+
+  {% include "member/includes/providers.html" with process="login" %}
+  <p style="margin: 30px 0; font-size: 13px;">Don't have an account? <a href="{% url 'sign' %}">Sign Up</a></p>
+  <p style="text-align: right; font-size: 13px;"><a href="{% url 'reset_password' %}">Forgot Password?</a></p>
+</form>
+{% endblock %}

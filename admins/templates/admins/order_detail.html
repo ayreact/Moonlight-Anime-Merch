@@ -1,0 +1,87 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content %}
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card">
+                    <!-- Card header -->
+                    <div class="white_card_header border-bottom d-flex justify-content-between">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">Order Details</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card body -->
+                    <div class="white_card_body row mt-2">
+                        <div class="col-6">
+                            <p class="fw-bold h6">Order ID: <span class="fw-none">{{order_details.id}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fw-bold h6">Total: <span class="fw-none">{{order_details.total}}</span></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Date Ordered: <span class="fw-none">{{order_details.created_at}}</span></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Status: <span class="fw-none">{% if order_details.completed == 1 %}Completed{% else %}Incomplete{% endif %}</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white_card my-4">
+                    <!-- Card header -->
+                    <div class="white_card_header border-bottom d-flex justify-content-between">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">Delivery Details</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card body -->
+                    <div class="white_card_body row mt-2">
+                        <div class="col-6">
+                            <p class="fw-bold h6">Mobile No.: <span class="fw-none">{{order_details.phone_number}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fw-bold h6">Email: <a href="mailto:{{order_details.email}}" target="_blank">{{order_details.email}}</a></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Delivery Address: <span class="fw-none">{{order_details.delivery}}</span></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Date & Time: <span class="fw-none">To be determined</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="white_card my-4">
+                    <!-- Card header -->
+                    <div class="white_card_header border-bottom d-flex justify-content-between">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">User Details</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card body -->
+                    <div class="white_card_body row mt-2">
+                        <div class="col-6">
+                            <p class="fw-bold h6">User ID: <span class="fw-none">{{user_details.id}}</span></p>
+                        </div>
+                        <div class="col-6">
+                            <p class="fw-bold h6">Username: <span class="fw-none">{{user_details.username}}</span></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Email ID: <span class="fw-none">{{user_details.email}}</span></p>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <p class="fw-bold h6">Full name: <span class="fw-none">{{user_details.first_name}} {{user_details.last_name}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

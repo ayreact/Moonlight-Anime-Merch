@@ -1,0 +1,51 @@
+# Django-specific files
+*.pyc
+*.pyo
+__pycache__/
+.DS_Store
+.pytest_cache/
+.tox/
+coverage.xml
+
+# Media files
+media/
+static/
+*.mp4
+*.mp3
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.zip
+*.tar.gz
+*.rar
+
+# Database files
+db.sqlite3
+db.sqlite3-wal
+db.sqlite3-shm
+
+# Environment files
+.env
+.flaskenv
+.venv
+
+# IDE-specific files
+.vscode/
+.idea/
+.project
+.classpath
+
+# Other files
+*.swp
+*.bak
+*.tmp
+*~

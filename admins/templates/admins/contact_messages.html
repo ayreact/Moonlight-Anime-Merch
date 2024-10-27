@@ -1,0 +1,97 @@
+{% extends 'admins/base.html' %}
+{% load static %}
+{% block content%}
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <div class="white_card_header">
+                        <div class="box_header m-0">
+                            <div class="main-title row justify-content-between w-100">
+                                <h3 class="m-0 col-lg-3">
+                                    User Messages 
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <span class="text-success fw-bold fs65"><small>{{message|safe}}</small></span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </h3>
+                                <div class="box_right d-flex lms_block col-lg-6 my-3">
+                                    <div class="serach_field_2">
+                                        <div class="search_inner">
+                                            <form action="{% url 'user_messages' %}" method="get">
+                                                <div class="search_field">
+                                                    <input type="text" name="query" value="{{ query }}" placeholder="Search">
+                                                </div>
+                                                <button type="submit"><i class="ti-search"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="add_button ms-2">
+                                        <button type="button" class="btn_1" data-bs-toggle="modal" data-bs-target="#exampleModalLong">
+                                            Delete all
+                                            </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="white_card_body">
+                        <div class="QA_section">
+                            <div class="QA_table mb_30">
+                                <table class="table lms_table_active3 ">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Subject</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for message in user_messages %}
+                                        <tr>
+                                            <th scope="row">{{message.id}}</th>
+                                            <td>{{message.name}}</td>
+                                            <td>{{message.email}}</td>
+                                            <td>{{message.subject}}</td>
+                                            <td>
+                                                <div class="action_btns d-flex">
+                                                    <a href="{% url 'message_detail' message.id %}" title="View Message"><i class="fas fa-eye action_btn mr_10"></i></a>
+                                                    <a href="{% url 'delete_message' message.id %}" title="Delete Message"> <i class="fas fa-trash action_btn"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Delete all User Messages</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            By clicking "Delete", You're clearing all messages from your website users. <br>Make sure to go through and reply all messages before deleting. <br>Messages can not be recovered after deleting.
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'delete_all_messages' %}" data-toggle="modal" data-target="#addcategory" class="btn_1">Delete all</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

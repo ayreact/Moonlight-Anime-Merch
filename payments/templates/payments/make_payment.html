@@ -1,0 +1,41 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+{% block content %}
+<section class="pb-4">
+	<div class="bg-white border rounded-5">
+	  
+	  <section class="w-100 p-4 d-flex justify-content-center pb-4">
+
+			<p>You are about to fund your wallet with {{ payment.amount }} and transaction reference {{ payment.ref }}</p>
+			<br>
+
+			<button onclick="payWithPaystack()" class="btn btn-primary btn-block mb-4">Fund</button>
+		</section>
+       
+    </div>
+</section>
+
+<script>
+	function payWithPaystack() {
+		let currency = "NGN";
+		let ref = "{{ payment.ref }}";
+		let amount = "{{ payment.amount }}";
+		let obj = {
+			key: "{{ paystack_pub_key }}",
+			email: "{{ payment.email }}",
+			amount: amount,
+			ref: ref,
+			callback: function (response) {
+				window.location.href = "{% url 'verify_payment' payment.ref %}";
+			},
+		};
+		if (Boolean(currency)) {
+			obj.currency = currency.toUpperCase();
+		}
+
+		var handler = PaystackPop.setup(obj);
+		handler.openIframe();
+	}
+</script>
+
+{% endblock %}

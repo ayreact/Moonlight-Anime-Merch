@@ -1,0 +1,357 @@
+{% extends 'nobodyknows/basee.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content%}
+<!-- image slider -->
+<div class="slider">
+    <div class="slides position-relative">
+        <div class="position-absolute top-50 translate-middle-y start-0 w-100 z-5">
+            <div class="col-12 col-md-10 col-lg-6 mx-auto text-center text-md-start px-3 px-md-5">
+                <p class="text-white fw-bold mt-3 mb-0 homeslide_text_1">Hi there!</p>
+                <h1 class="text-white mt-lg-3 mt-0 mb-2  homeslide_text_2">Get premium <br>Anime Merchandize at <br>Moonlight Anime Merch</h1>
+                <a href="{% url 'product' 'all' %}?category=shop_all" class="btn theme_bg_6 text-white px-lg-4 px-md-3 px-2 py-lg-2 py-md-2 py-1 rounded-2 fs-6">Shop Now</a>
+            </div>
+        </div>
+        <div class="slide w-100">
+            <img src="{% static 'img/homeslide/1.jpg' %}" alt="Image 1">
+        </div>
+        <div class="slide w-100">
+            <img src="{% static 'img/homeslide/2.jpg' %}" alt="Image 1">
+        </div>
+        <div class="slide w-100">
+            <img src="{% static 'img/homeslide/3.jpg' %}" alt="Image 1">
+        </div>
+        <div class="slide w-100">
+            <img src="{% static 'img/homeslide/4.jpg' %}" alt="Image 1">
+        </div>
+    </div>
+    <button class="prev homeslide mx-lg-3 mx-md-2 mx-1" onclick="prevSlide()"><i class="fa fa-chevron-left"></i></button>
+    <button class="next homeslide mx-lg-3 mx-md-2 mx-1" onclick="nextSlide()"><i class="fa fa-chevron-right"></i></button>
+</div>
+
+<!-- services -->
+<div id="services" style="scroll-margin: 90px;">
+    <div class="container my-5">
+        <div class="row my-5 g-2 gx-3">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb-3 mb-lg-0 d-flex">
+                <i class="fas fa-cart-shopping h2 mx-3 mt-1"></i>
+                <div>
+                    <p class="h5">FREE DELIVERY</p>
+                    <p>Get your first order above 10,000 delivered for FREE.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+                <i class="fas fa-award h2 mx-3 mt-1"></i>
+                <div>
+                    <p class="h5">QUALITY GUARANTEE</p>
+                    <p>Our Products are in good qualities and styles.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 my-3 my-lg-0 d-flex">
+                <i class="fas fa-tag h3 mx-3 mt-1"></i>
+                <div>
+                    <p class="h5">DAILY OFFERS</p>
+                    <p>Get different shop items at discount prices daily.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+                <i class="fas fa-shield-halved h2 mx-3 mt-1"></i>
+                <div>
+                    <p class="h5">100% SECURE PAYMENT</p>
+                    <p>All payments made with M.A.M are fully secured with Paystack.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- shop -->
+<div id="product" class="container" style="scroll-margin: 90px;">
+    <div class="col-lg-12">
+        <div class="row g-3">
+          <!-- Section Title -->
+          <div class="container section-title mb-3 mt-4">
+              <div class="section-title-container d-flex align-items-center justify-content-between">
+                  <h3>Featured Products</h3>
+                  <p><a href="{% url 'product' 'all' %}?category=shop_all">Visit Shop</a></p>
+              </div>
+          </div>
+          <!-- End Section Title -->
+  
+          <!-- page content -->
+          {% for product in product_list %}
+          <div class="col-lg-3 col-md-4 col-sm-6">
+              <div class="white_card position-relative mb_20">
+                  {% if product.discount_value > 0 %}
+                  <span class="position-absolute top-0 start-0 badge_btn_4 px-2 m-2" style="font-size: 11px;">-{{ product.discount_value }}%</span>
+                  {% endif %}
+                  <div class="card-body">
+                      <div class="ribbon1 rib1-primary">
+                          <span class="text-white text-center rib1-primary">
+                              {% with product.product_quantity as quantity %}
+                                  {% if quantity >= 13 %}
+                                      In Stock
+                                  {% elif quantity > 5 %}
+                                      Few units left
+                                  {% elif quantity >= 1 %}
+                                      {{quantity}} unit{% if quantity > 1 %}s{% endif %} left
+                                  {% else %}
+                                      Out of stock
+                                  {% endif %}
+                              {% endwith %}
+                          </span>
+                      </div>
+                      <a href="{% url 'product_details' product.id %}">
+                          <img src="{{ product.product_img.url }}" alt class="d-block mx-auto my-4 hover-zoom" height="150">
+                      </a>
+                      {% if product.id in cart_products_id %}
+                      <div class="row mt-4 mb-2">
+                          <div class="col">
+                              <span class="badge_btn_1 mb-1">{{product.product_category}}</span>
+                              <a href="{% url 'product_details' product.id %}" class="f_w_600 color_text_3 f_s_17 d-block">{{product.product_name}}</a>
+                          </div>
+                          <div class="col-auto text-end text-md-start text-sm-start mt-2 mt-lg-0">
+                              <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{product.product_price}} {% if product.discount_value > 0 %}<small class="text-secondary fw-normal text-decoration-line-through">${{product.actual_prod_price}}</small>{% endif %}</h4>
+                              <div>
+                                  <ul class="list-inline mb-0 product-review d-flex align-self-center px-lg-2">
+                                      {% with product.product_rating as rating %}
+                                          {% for i in "xxxxx" %}
+                                              {% if forloop.counter <= rating %}
+                                                  <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                                              {% else %}
+                                                  <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                                              {% endif %}
+                                          {% endfor %}
+                                      {% endwith %}
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="d-grid">
+                          {% with cart_product=cart_product_map|get_item:product.id %}
+                              <div class="d-flex justify-content-between border-top mt-0">
+                                  <div class="mt-2">
+                                      <a href="{% url 'remove_from_cart' cart_product.id 'from_index' %}#product" class="d-flex justify-content-center align-self-center align-items-center h-100 rounded-2 fw-bold" style="background: #59889c; padding: 10px 12px;" title="Remove from cart"><i class="fa fa-trash text-white" style="font-size: 12px;"></i></a>
+                                  </div>
+                                  <div class="d-flex justify-content-end mt-2">
+                                      <a href="{% url 'update_cart_quantity' cart_product.id product.id 'decrease' 'from_index' %}#product" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" title="Reduce quantity">-</a>
+                                      <span class="text-dark fs-6 p-3 py-2 border">{{ cart_product.quantity }}</span>
+                                      <a href="{% url 'update_cart_quantity' cart_product.id product.id 'increase' 'from_index' %}#product" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-right-radius: 5px; border-bottom-right-radius: 5px;" title="Increase quantity">+</a>
+                                  </div>
+                              </div>
+                          {% endwith %}
+                      </div>
+                      {% else %}
+                      <div class="row mt-4 mb-3">
+                          <div class="col">
+                              <span class="badge_btn_1 mb-1">{{product.product_category}}</span>
+                              <a href="{% url 'product_details' product.id %}" class="f_w_600 color_text_3 f_s_17 d-block">{{product.product_name}}</a>
+                          </div>
+                          <div class="col-auto text-end text-md-start text-sm-start mt-2 mt-lg-0">
+                              {% if product.discount_value > 0 %}
+                              <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{product.product_price}} <small class="text-secondary fw-normal text-decoration-line-through">{{product.actual_prod_price}}</small></h4>
+                              {% else %}
+                              <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{ product.product_price }}</h4>
+                              {% endif %}
+                              <div>
+                                  <ul class="list-inline mb-0 product-review d-flex align-self-center px-lg-2">
+                                      {% with product.product_rating as rating %}
+                                          {% for i in "xxxxx" %}
+                                              {% if forloop.counter <= rating %}
+                                                  <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                                              {% else %}
+                                                  <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                                              {% endif %}
+                                          {% endfor %}
+                                      {% endwith %}
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="d-grid">
+                          <a href="{% if user.is_authenticated %}{% url 'add_to_cart' product.id 'from_index' %}#product{% else %}{% url 'log' %}{% endif %}" class="btn_2 btn" title="Add to cart">Add To Cart</a>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div id="about" class="about my-5" style="scroll-margin: 90px;">
+
+    <div class="container">
+
+        <!-- Section Title -->
+        <div class="section-title mb-3 mt-4">
+            <div class="section-title-container d-flex align-items-center justify-content-between">
+                <h3>About Us</h3>
+                <p><a href="{% url 'about' %}">Visit About Page</a></p>
+            </div>
+        </div>
+        <!-- End Section Title -->
+
+      <div class="row gy-4">
+
+        <div class="col-lg-6 content">
+          <p class="who-we-are">Who We Are</p>
+          <h3>Moonlight Anime Merch</h3>
+          <p class="fst-italic">Here at Moonlight Anime Merch, we craft high-quality anime-inspired clothing, footwear, jewelry, and accessories, bringing the vibrant world of anime to passionate fans.</p>
+          <ul>
+            <li><i class="bi bi-check-circle"></i> <span>Creating a vibrant community for anime culture and style.</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Fostering a deeper connection between anime fans and anime itself.</span></li>
+            <li><i class="bi bi-check-circle"></i> <span>Inspiring creativity and confidence through iconic anime-inspired designs.</span></li>
+          </ul>
+          <p>To our amazing customers, thank you for choosing Moonlight Anime Merch as your destination for anime clothing, footwear, jewelry, and accessories. Your passion drives us to bring your favorite characters to life. We're grateful to have you on this journey with us!</p>
+        </div>
+
+        <div class="col-lg-6 about-images">
+          <div class="row gy-4">
+            <div class="col-lg-6">
+              <img src="{% static 'assets/img/about-company-1.jpg' %}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6">
+              <div class="row gy-4">
+                <div class="col-lg-12">
+                  <img src="{% static 'assets/img/about-company-2.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-12">
+                  <img src="{% static 'assets/img/about-company-3.jpg' %}" class="img-fluid" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>
+
+<!-- blog -->
+<div id="blog" class="trending-category mt-5" style="scroll-margin: 90px;">
+    <div class="container">
+
+      <div class="">
+        <!-- Section Title -->
+        <div class="section-title mb-3 mt-4">
+            <div class="section-title-container d-flex align-items-center justify-content-between">
+                <h3>Our Blog</h3>
+                <p><a href="{% url 'blog' %}">Visit Blog</a></p>
+            </div>
+        </div>
+        <!-- End Section Title -->
+        <div class="row g-5">
+          <div class="col-lg-4">
+
+            <div class="post-entry lg">
+              <a href="blog-details.html"><img src="{% static 'assets/img/post-landscape-1.jpg' %}" alt="" class="img-fluid"></a>
+              <div class="post-meta"><span class="date">Culture</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+              <h2><a href="blog-details.html">11 Work From Home Part-Time Jobs You Can Do Now</a></h2>
+              <p class="mb-4 d-block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, inventore pariatur numquam cumque possimus exercitationem? Nihil tempore odit ab minus eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo, eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos</p>
+
+              <div class="d-flex align-items-center author">
+                <div class="photo"><img src="{% static 'assets/img/person-1.jpg' %}" alt="" class="img-fluid"></div>
+                <div class="name">
+                  <h3 class="m-0 p-0">Cameron Williamson</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <div class="row g-5">
+              <div class="col-lg-4 border-start custom-border">
+                <div class="post-entry">
+                  <a href="blog-details.html"><img src="{% static 'assets/img/post-landscape-3.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                  <h2><a href="blog-details.html">Let’s Get Back to Work, New York</a></h2>
+                </div>
+                <div class="post-entry">
+                  <a href="blog-details.html"><img src="{% static 'assets/img/post-landscape-5.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Food</span> <span class="mx-1">•</span> <span>Jul 17th '22</span></div>
+                  <h2><a href="blog-details.html">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
+                </div>
+                <div class="post-entry">
+                  <a href="blog-details.html"><img src="{% static 'assets/img/post-landscape-7.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Design</span> <span class="mx-1">•</span> <span>Mar 15th '22</span></div>
+                  <h2><a href="blog-details.html">Why Craigslist Tampa Is One of The Most Interesting Places On the Web?</a></h2>
+                </div>
+              </div>
+              <div class="col-lg-4 border-start custom-border">
+                <div class="post-entry">
+                  <a href="#"><img src="{% static 'assets/img/post-landscape-3.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Business</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                  <h2><a href="#">6 Easy Steps To Create Your Own Cute Merch For Instagram</a></h2>
+                </div>
+                <div class="post-entry">
+                  <a href="#"><img src="{% static 'assets/img/post-landscape-6.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Tech</span> <span class="mx-1">•</span> <span>Mar 1st '22</span></div>
+                  <h2><a href="#">10 Life-Changing Hacks Every Working Mom Should Know</a></h2>
+                </div>
+                <div class="post-entry">
+                  <a href="#"><img src="{% static 'assets/img/post-landscape-8.jpg' %}" alt="" class="img-fluid"></a>
+                  <div class="post-meta"><span class="date">Travel</span> <span class="mx-1">•</span> <span>Jul 5th '22</span></div>
+                  <h2><a href="#">5 Great Startup Tips for Female Founders</a></h2>
+                </div>
+              </div>
+
+              <!-- Recents Section -->
+              <div class="col-lg-4">
+
+                <div class="trending">
+                  <h3>Recents</h3>
+                  <ul class="trending-post">
+                    <li>
+                      <a href="#">
+                        <span class="number">1</span>
+                        <h3>The Best Homemade Masks for Face (keep the Pimples Away)</h3>
+                        <span class="author">Jane Cooper</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span class="number">2</span>
+                        <h3>17 Pictures of Medium Length Hair in Layers That Will Inspire Your New Haircut</h3>
+                        <span class="author">Wade Warren</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span class="number">3</span>
+                        <h3>13 Amazing Poems from Shel Silverstein with Valuable Life Lessons</h3>
+                        <span class="author">Esther Howard</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span class="number">4</span>
+                        <h3>9 Half-up/half-down Hairstyles for Long and Medium Hair</h3>
+                        <span class="author">Cameron Williamson</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <span class="number">5</span>
+                        <h3>Life Insurance And Pregnancy: A Working Mom’s Guide</h3>
+                        <span class="author">Jenny Wilson</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+              </div> <!-- End Recents Section -->
+            </div>
+          </div>
+
+        </div> <!-- End .row -->
+      </div>
+
+    </div>
+</div>
+{% endblock %}
