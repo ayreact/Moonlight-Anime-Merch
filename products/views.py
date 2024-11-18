@@ -117,12 +117,16 @@ def update_cart_quantity(request, cart_product_id, product_id, action, from_loc)
     # Adjust quantity based on action
     if action == 'increase':
         cart_product.quantity += 1
+        # Update the total for the cart product
+        cart_product.product_total = cart_product.quantity * product.product_price
+        cart_product.save()
     elif action == 'decrease' and cart_product.quantity > 1:
         cart_product.quantity -= 1
-    
-    # Update the total for the cart product
-    cart_product.product_total = cart_product.quantity * product.product_price
-    cart_product.save()
+        # Update the total for the cart product
+        cart_product.product_total = cart_product.quantity * product.product_price
+        cart_product.save()
+    elif action == 'decrease' and cart_product.quantity == 1:
+        cart_product.delete()
     
     # Determine the product category (used for the category query parameter)
     product_category = product.product_category.lower()
