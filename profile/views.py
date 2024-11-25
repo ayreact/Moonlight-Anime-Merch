@@ -53,21 +53,22 @@ def edit_user_psw(request, user_id):
         if not check_password(current_password, user.password):
             messages.error(request, 'Current password is incorrect.')
             return redirect('account_settings')
+        
+        else:
+            # Check if new password and confirm password match
+            if new_password != confirm_password:
+                messages.error(request, 'New password and confirm password do not match.')
+                return redirect('account_settings')
+            else:
+                # Set the new password
+                user.set_password(new_password)
+                user.save()
 
-        # Check if new password and confirm password match
-        if new_password != confirm_password:
-            messages.error(request, 'New password and confirm password do not match.')
-            return redirect('account_settings')
+                # Update session auth hash to prevent the user from being logged out
+                update_session_auth_hash(request, user)
 
-        # Set the new password
-        user.set_password(new_password)
-        user.save()
-
-        # Update session auth hash to prevent the user from being logged out
-        update_session_auth_hash(request, user)
-
-        messages.success(request, 'Password updated successfully.')
-        return redirect('account_settings')
+                messages.success(request, 'Password updated successfully.')
+                return redirect('account_settings')
 
     return render(request, 'account/account_settings.html')
 

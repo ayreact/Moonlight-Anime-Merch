@@ -11,19 +11,19 @@
   {% endfor %}
   {% endif %}
   <div class="form-row">
-    <input type="text" class="form-control" placeholder="First Name" name="first_name">
-    <input type="text" class="form-control" placeholder="Last Name" name="last_name">
+    <input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+    <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
   </div>
   <div class="form-row">
-      <input type="text" class="form-control" placeholder="Username"  name="username">
-      <input type="text" class="form-control" placeholder="Email" name="email">
+      <input type="text" class="form-control" placeholder="Username"  name="username" required>
+      <input type="text" class="form-control" placeholder="Email" name="email" required>
   </div>
   <div class="form-row">
-      <input type="password" class="form-control" placeholder="Password"  name="password">
-      <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
+      <input type="password" class="form-control" placeholder="Password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"  name="password" required>
+      <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" required>
   </div>
   <div class="form-row">
-      <input type="text" class="form-control" placeholder="Contact No." name="phone_number">
+      <input type="text" class="form-control" placeholder="Contact No." name="phone_number" required>
       <label for="uploadImg" class="form-control" style="padding: 12px;" style="cursor: pointer;">Add Profile Image</label>
       <input type="file" name="profile_img" id="uploadImg" style="display: none;">
   </div>
