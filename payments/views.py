@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Payment
 from products.models import Order
 from django.conf import settings
+from django.urls import reverse
 from .paystack import Paystack
 import requests
 
@@ -28,11 +29,11 @@ def initiate_payment(request, order_id):
             'amount_value': payment.amount,
         }
         
-        return render(request, 'payments/make_payment.html', context)
+        # return render(request, 'payments/make_payment.html', context)
+        return redirect(reverse('order_checkout', kwargs={'order_id': order.id, 'payment_id': payment.id}))
     context = {
         'order':order
     }
-
     return render(request, 'payments/payment.html', context)
 
 def initialize_payment(request):

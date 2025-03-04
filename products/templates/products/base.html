@@ -48,15 +48,16 @@
 		<link rel="stylesheet" href="{% static 'style/about.css' %}">
 		<style>
 			body{
-				background: linear-gradient(45deg, var(--main-color), var(--sub-color));
 				background-size: cover;
 				background-repeat: no-repeat;
 			}
 
 			.order_checkcout{
-				margin: 7% 0 0;
 				width: 100%;
-				padding: 0 8%;
+				height: 100vh;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				background: linear-gradient(45deg, var(--main-color), var(--sub-color));
 			}
 
 			.order_checkcout_border_dash{

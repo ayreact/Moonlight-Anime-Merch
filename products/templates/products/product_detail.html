@@ -97,43 +97,103 @@
       </div>
 
       <div class="row">
-          <div class="col-md-3">
-              <div class="white_card position-relative mb_20 ">
+        {% for product in rel_product %}
+        <div class="col-md-3 col-sm-4">
+            <div class="white_card position-relative mb_20">
+                {% if product.discount_value > 0 %}
+                <span class="position-absolute top-0 start-0 badge_btn_4 px-2 m-2" style="font-size: 11px;">-{{ product.discount_value }}%</span>
+                {% endif %}
                 <div class="card-body">
-                  <div class="ribbon1 rib1-primary">
-                    <span class="text-white text-center rib1-primary">Few units left</span>
-                  </div>
-                  <a href="">
-                    <img src="" alt class="d-block mx-auto my-4" height="150">
-                  </a>
-                  <div class="row my-4">
-                    <div class="col">
-                      <span class="badge_btn_1  mb-1">Category</span>
-                      <a href="" class="f_w_600 color_text_3 f_s_17 d-block">Lorem ipsum</a>
+                    <div class="ribbon1 rib1-primary">
+                        <span class="text-white text-center rib1-primary">
+                            {% with product.product_quantity as quantity %}
+                                {% if quantity >= 13 %}
+                                    In Stock
+                                {% elif quantity > 5 %}
+                                    Few units left
+                                {% elif quantity >= 1 %}
+                                    {{quantity}} unit{% if quantity > 1 %}s{% endif %} left
+                                {% else %}
+                                    Out of stock
+                                {% endif %}
+                            {% endwith %}
+                        </span>
                     </div>
-                    <div class="col-auto position-relative">
-                    <h4 class="text-dark mt-0 position-absolute top-0 end-0 px-2 f_s_16">$price</h4>
-                    <div class="position-absolute end-0 bottom-0">
-                      <ul class="list-inline mb-0 product-review d-flex align-self-center px-2">
-                        <!-- {% with product.product_price as rating %}
-                        {% for i in "xxxxx" %}
-                          {% if forloop.counter <= rating %}
-                          <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
-                          {% else %}
-                          <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
-                          {% endif %}
-                        {% endfor %}
-                        {% endwith %} -->
-                      </ul>
+                    <a href="{% url 'product_details' product.id %}">
+                        <img src="{{ product.product_img.url }}" alt class="d-block mx-auto my-4 hover-zoom" height="150">
+                    </a>
+                    {% if product.id in cart_products_id %}
+                    <div class="row mt-4 mb-2">
+                        <div class="col">
+                            <span class="badge_btn_1 mb-1">{{product.product_category}}</span>
+                            <a href="{% url 'product_details' product.id %}" class="f_w_600 color_text_3 f_s_17 d-block">{{product.product_name}}</a>
+                        </div>
+                        <div class="col-auto text-end text-md-start text-sm-start mt-2 mt-lg-0">
+                            <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{product.product_price}} {% if product.discount_value > 0 %}<small class="text-secondary fw-normal text-decoration-line-through">${{product.actual_prod_price}}</small>{% endif %}</h4>
+                            <div>
+                                <ul class="list-inline mb-0 product-review d-flex align-self-center px-lg-2">
+                                    {% with product.product_rating as rating %}
+                                        {% for i in "xxxxx" %}
+                                            {% if forloop.counter <= rating %}
+                                                <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                                            {% else %}
+                                                <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+                    <div class="d-grid">
+                        {% with cart_product=cart_product_map|get_item:product.id %}
+                            <div class="d-flex justify-content-between border-top mt-0">
+                                <div class="mt-2">
+                                    <a href="{% url 'remove_from_cart' cart_product.id 'from_prod' %}" class="d-flex justify-content-center align-self-center align-items-center h-100 rounded-2 fw-bold" style="background: #59889c; padding: 10px 12px;" title="Remove from cart"><i class="fa fa-trash text-white" style="font-size: 12px;"></i></a>
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="{% url 'update_cart_quantity' cart_product.id product.id 'decrease' 'from_prod' %}" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-left-radius: 5px; border-bottom-left-radius: 5px;" title="Reduce quantity">-</a>
+                                    <span class="text-dark fs-6 p-3 py-2 border">{{ cart_product.quantity }}</span>
+                                    <a href="{% url 'update_cart_quantity' cart_product.id product.id 'increase' 'from_prod' %}" class="text-white fs-6 py-2 p-3 fw-bold" style="background: #59889c; border-top-right-radius: 5px; border-bottom-right-radius: 5px;" title="Increase quantity">+</a>
+                                </div>
+                            </div>
+                        {% endwith %}
                     </div>
-                  </div>
-                  <div class="d-grid">
-                    <a href="" class="btn_2 btn">Add To Cart</a>
-                  </div>
+                    {% else %}
+                    <div class="row mt-4 mb-3">
+                        <div class="col">
+                            <span class="badge_btn_1 mb-1">{{product.product_category}}</span>
+                            <a href="{% url 'product_details' product.id %}" class="f_w_600 color_text_3 f_s_17 d-block">{{product.product_name}}</a>
+                        </div>
+                        <div class="col-auto text-end text-md-start text-sm-start mt-2 mt-lg-0">
+                            {% if product.discount_value > 0 %}
+                            <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{product.product_price}} <small class="text-secondary fw-normal text-decoration-line-through">{{product.actual_prod_price}}</small></h4>
+                            {% else %}
+                            <h4 class="text-dark mt-0 px-lg-2 f_s_16 fw-bold">${{ product.product_price }}</h4>
+                            {% endif %}
+                            <div>
+                                <ul class="list-inline mb-0 product-review d-flex align-self-center px-lg-2">
+                                    {% with product.product_rating as rating %}
+                                        {% for i in "xxxxx" %}
+                                            {% if forloop.counter <= rating %}
+                                                <li class="list-inline-item"><i class="fas fa-star text-warning font-16"></i></li>
+                                            {% else %}
+                                                <li class="list-inline-item"><i class="fa-regular fa-star text-warning font-16"></i></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{% if user.is_authenticated %}{% url 'add_to_cart' product.id 'from_prod' %}?category=product.category.lower(){% else %}{% url 'log' %}{% endif %}" class="btn_2 btn" title="Add to cart">Add To Cart</a>
+                    </div>
+                    {% endif %}
                 </div>
-              </div>
-          </div>
+            </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
 </div>

@@ -17,7 +17,7 @@ urlpatterns = [
     # Checkout order system - more specific patterns
     path('proceed_to_checkout/', proceed_to_checkout, name='proceed_to_checkout'),
     path('checkout/', checkout, name='checkout'),
-    path('order_checkout/<int:order_id>/', order_checkout, name='order_checkout'),
+    path('order_checkout/<int:order_id>/<int:payment_id>/', order_checkout, name='order_checkout'),
     
     # Shop - more general pattern, placed last
     path('<str:categ>', product, name='product'),

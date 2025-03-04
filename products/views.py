@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import new_product, Cart, CartProduct, Order, OrderProduct
+from payments.models import Payment
 from django.db.models import Q
 from urllib.parse import urlencode
 
@@ -54,6 +55,15 @@ def product(request, categ):
 def product_details(request, product_id):
     product_detail = get_object_or_404(new_product, id=product_id)
     
+    product_list = new_product.objects.all()
+    product_list.reverse()
+    rel_product = []
+    for product in product_list:
+        if product.product_category == product_detail.product_category and product.id != product_detail.id:
+            rel_product.append(product)
+            if len(rel_product) == 4:
+                break
+
     cart = Cart.objects.filter(user=request.user).first() if request.user.is_authenticated else None
     cart_products = CartProduct.objects.filter(cart=cart) if cart else []
     
@@ -63,8 +73,9 @@ def product_details(request, product_id):
     
     context = {
         'product_detail':product_detail,
-            'cart_products_id': cart_products_id,
-            'cart_product_map': cart_product_map,
+        'cart_products_id': cart_products_id,
+        'cart_product_map': cart_product_map,
+        'rel_product':rel_product,
     }
     return render(request, 'products/product_detail.html', context)
 
@@ -238,9 +249,12 @@ def checkout(request):
 
 
 @login_required
-def order_checkout(request, order_id):
+def order_checkout(request, order_id, payment_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
+    payment = get_object_or_404(Payment, id=payment_id)
+    
     context = {
-        'order': order
+        'order': order,
+        'payment':payment
         }
     return render(request, 'products/order_checkout.html', context)
